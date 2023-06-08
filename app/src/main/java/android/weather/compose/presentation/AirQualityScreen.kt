@@ -1,7 +1,8 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package android.weather.compose
+package android.weather.compose.presentation
 
+import android.weather.compose.R
 import android.weather.compose.ui.theme.BackgroundContainer
 import android.weather.compose.ui.theme.DarkText
 import android.weather.compose.ui.theme.FifthColor

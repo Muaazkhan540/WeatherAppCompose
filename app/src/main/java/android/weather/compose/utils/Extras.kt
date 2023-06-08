@@ -1,10 +1,13 @@
 package android.weather.compose.utils
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.net.Uri
+import android.util.AndroidRuntimeException
 import android.weather.compose.R
 import android.weather.compose.ui.theme.FifthColor
 import android.weather.compose.ui.theme.FirstColor
@@ -32,6 +35,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.createBitmap
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -99,6 +103,36 @@ fun Context.onShareAppClick() {
     }
     val shareIntent = Intent.createChooser(sendIntent, null)
     startActivity(shareIntent)
+}
+
+fun Context.sendEmail(
+    to: String? = "kmuaz58@gmail.com",
+    subject: String? = "Review about app",
+    body: String? = "Review about app",
+) {
+    val emails = arrayOf(to)
+    val uri = Uri.parse(to).buildUpon().appendQueryParameter("subject", subject)
+        .appendQueryParameter("body", body).build()
+    val emailIntent = Intent(Intent.ACTION_SENDTO, uri)
+    emailIntent.data = Uri.parse("mailto:$to")
+    emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
+    emailIntent.putExtra(Intent.EXTRA_TEXT, body)
+    emailIntent.putExtra(Intent.EXTRA_EMAIL, emails)
+    val fIntent = Intent.createChooser(emailIntent, "Send mail...")
+    if (fIntent != null) {
+        try {
+            ContextCompat.startActivity(this, fIntent, null)
+        } catch (ignored: AndroidRuntimeException) {
+            let {
+                AlertDialog.Builder(it).apply {
+                    setTitle(R.string.app_name)
+                    setMessage(it.getString(R.string.msg_sbc_failed))
+                    setPositiveButton(it.getString(R.string.button_ok), null)
+                    show()
+                }
+            }
+        }
+    }
 }
 
 fun Context.vectorToBitmap(@DrawableRes drawableId: Int): Bitmap? {

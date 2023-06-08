@@ -3,6 +3,7 @@ package android.weather.compose
 import android.app.Activity
 import android.weather.compose.localization.LocalizationActivityDelegate
 import android.weather.compose.navigation.Screens
+import android.weather.compose.presentation.AirQualityScree
 import android.weather.compose.presentation.DetailScreen
 import android.weather.compose.presentation.LanguageScreen
 import android.weather.compose.presentation.MainUi

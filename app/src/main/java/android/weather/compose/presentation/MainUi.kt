@@ -25,6 +25,7 @@ import android.weather.compose.ui.theme.textColor
 import android.weather.compose.utils.Space
 import android.weather.compose.utils.poppins
 import android.weather.compose.utils.poppinsMedium
+import android.weather.compose.utils.sendEmail
 import android.weather.compose.utils.tomorrowCode
 import android.weather.compose.view_model.MainViewModel
 import androidx.activity.compose.BackHandler
@@ -74,6 +75,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -345,6 +347,7 @@ fun RatingDialog(dialog: Boolean, onDismiss: () -> Unit) {
     val ratingIcon by remember {
         mutableIntStateOf(R.drawable.ic_dialog_star)
     }
+    val context = LocalContext.current
     GeneralDialog(dialog = dialog, onDismiss = { onDismiss() }, columnScope = {
         IconButton(
             onClick = { onDismiss() }, modifier = Modifier
@@ -367,7 +370,9 @@ fun RatingDialog(dialog: Boolean, onDismiss: () -> Unit) {
         LightText(text = stringResource(id = R.string.gratefull_text))
         LightText(text = stringResource(id = R.string.rate_text))
         Button(
-            onClick = { }, modifier = Modifier
+            onClick = {
+                context.sendEmail()
+            }, modifier = Modifier
                 .padding(19.dp)
                 .fillMaxWidth()
         ) {
