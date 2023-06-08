@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.WeatherAppCompose" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/white</item>
+    </style>
+
+    <color name="arc_color">#97cbf1</color>
+    <color name="background_container">#27282d</color>
+    <color name="text_color">@color/white</color>
+</resources>
